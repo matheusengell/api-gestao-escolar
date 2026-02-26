@@ -1,4 +1,8 @@
 package com.example.gestaoEscolar.dto.professor;
 
-public class ProfessorRequisicaoDto {
+public record ProfessorRequisicaoDto(
+        String nome,
+        String email,
+        String disciplina
+) {
 }
