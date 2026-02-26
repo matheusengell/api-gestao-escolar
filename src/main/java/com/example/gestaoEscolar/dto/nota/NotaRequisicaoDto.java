@@ -1,4 +1,8 @@
 package com.example.gestaoEscolar.dto.nota;
 
-public class NotaRequisicaoDto {
+public record NotaRequisicaoDto(
+        long alunoId,
+        long aulaId,
+        double valor
+) {
 }
