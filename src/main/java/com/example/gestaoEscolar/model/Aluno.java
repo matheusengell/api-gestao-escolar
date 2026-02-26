@@ -1,5 +1,7 @@
 package com.example.gestaoEscolar.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class Aluno {
@@ -8,6 +10,7 @@ public class Aluno {
     private String nome;
     private String email;
     private String matricula;
+    @JsonProperty("data_nascimento")
     private LocalDate dataNascimento;
 
     public Aluno(long id, String nome, String email, String matricula, LocalDate dataNascimento) {
@@ -26,6 +29,7 @@ public class Aluno {
     }
 
     public Aluno(){}
+
 
 
     public long getId() {
