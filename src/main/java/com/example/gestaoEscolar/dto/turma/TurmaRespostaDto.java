@@ -1,4 +1,9 @@
 package com.example.gestaoEscolar.dto.turma;
 
-public class TurmaRespostaDto {
+public record TurmaRespostaDto(
+        long id,
+        String nome,
+        long curso_id,
+        long professor_id
+) {
 }
