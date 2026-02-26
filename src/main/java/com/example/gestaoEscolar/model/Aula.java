@@ -1,5 +1,6 @@
 package com.example.gestaoEscolar.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Aula {
@@ -28,6 +29,7 @@ public class Aula {
     public long getId() {
         return id;
     }
+
 
     public void setId(long id) {
         this.id = id;
