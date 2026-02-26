@@ -12,9 +12,10 @@ public class Curso {
         this.codigo = codigo;
     }
 
-    public Curso(String codigo, String nome) {
-        this.codigo = codigo;
+    public Curso( String nome, String codigo) {
         this.nome = nome;
+        this.codigo = codigo;
+
     }
 
     public Curso(){}

@@ -1,4 +1,7 @@
 package com.example.gestaoEscolar.dto.curso;
 
-public class CursoRequisicaoDto {
+public record CursoRequisicaoDto(
+        String nome,
+        String codigo
+) {
 }
