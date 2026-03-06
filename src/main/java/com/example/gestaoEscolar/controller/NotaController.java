@@ -3,6 +3,9 @@ package com.example.gestaoEscolar.controller;
 import com.example.gestaoEscolar.dto.nota.NotaRequisicaoDto;
 import com.example.gestaoEscolar.dto.nota.NotaRespostaDto;
 import com.example.gestaoEscolar.service.NotaService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -10,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gestaoNota")
+@Validated
 public class NotaController {
 
     private NotaService notaService;
@@ -20,7 +24,7 @@ public class NotaController {
 
     @PostMapping
     public NotaRespostaDto salvar(
-            @RequestBody NotaRequisicaoDto notaRequisicaoDto
+            @RequestBody @Valid NotaRequisicaoDto notaRequisicaoDto
     ){
         try {
             return notaService.salvar(notaRequisicaoDto);
@@ -41,7 +45,7 @@ public class NotaController {
 
     @GetMapping ("/{id}")
     public NotaRespostaDto listarPorId(
-            @PathVariable long id
+            @PathVariable  @Positive(message = "O valor deve ser positivo") long id
     ){
         try {
             return notaService.listarPorId(id);
@@ -52,8 +56,8 @@ public class NotaController {
 
     @PutMapping ("/{id}")
     public NotaRespostaDto atualizar(
-            @RequestBody NotaRequisicaoDto notaRequisicaoDto,
-            @PathVariable long id
+            @RequestBody @Valid NotaRequisicaoDto notaRequisicaoDto,
+            @PathVariable  @Positive(message = "O valor deve ser positivo") long id
     ){
         try {
             return notaService.atualizar(notaRequisicaoDto, id);
@@ -64,7 +68,7 @@ public class NotaController {
 
     @DeleteMapping ("/{id}")
     public void deletar(
-            @PathVariable long id
+            @PathVariable  @Positive(message = "O valor deve ser positivo") long id
     ){
         try {
             notaService.deletar(id);
