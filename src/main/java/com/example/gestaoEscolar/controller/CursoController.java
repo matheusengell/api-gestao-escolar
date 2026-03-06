@@ -4,6 +4,9 @@ import com.example.gestaoEscolar.dto.curso.CursoRequisicaoDto;
 import com.example.gestaoEscolar.dto.curso.CursoRespostaDto;
 import com.example.gestaoEscolar.model.Curso;
 import com.example.gestaoEscolar.service.CursoService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -11,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gestaoCurso")
+@Validated
 public class CursoController {
 
 
@@ -22,7 +26,7 @@ public class CursoController {
 
     @PostMapping
     public CursoRespostaDto salvar(
-            @RequestBody CursoRequisicaoDto cursoRequisicaoDto
+            @RequestBody @Valid CursoRequisicaoDto cursoRequisicaoDto
             ){
         try {
             return cursoService.salvar(cursoRequisicaoDto);
@@ -42,7 +46,7 @@ public class CursoController {
 
     @GetMapping ("/{id}")
     public CursoRespostaDto listarPorId(
-            @PathVariable long id
+            @PathVariable  @Positive(message = "O id deve ser positivo") long id
     ){
         try {
             return cursoService.listarPorId(id);
@@ -53,8 +57,8 @@ public class CursoController {
 
     @PutMapping ("/{id}")
     public CursoRespostaDto atualizar(
-            @RequestBody CursoRequisicaoDto cursoRequisicaoDto,
-            @PathVariable long id
+            @RequestBody @Valid CursoRequisicaoDto cursoRequisicaoDto,
+            @PathVariable @Positive(message = "O id deve ser positivo") long id
     ){
         try {
             return cursoService.atualizar(cursoRequisicaoDto, id);
@@ -65,7 +69,7 @@ public class CursoController {
 
     @DeleteMapping ("/{id}")
     public void deletar(
-            @PathVariable long id
+            @PathVariable @Positive(message = "O id deve ser positivo")  long id
     ){
         try {
             cursoService.deletar(id);
