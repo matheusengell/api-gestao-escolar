@@ -3,6 +3,9 @@ package com.example.gestaoEscolar.controller;
 import com.example.gestaoEscolar.dto.professor.ProfessorRequisicaoDto;
 import com.example.gestaoEscolar.dto.professor.ProfessorRespostaDto;
 import com.example.gestaoEscolar.service.ProfessorService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -10,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping ("/gestaoProfessor")
+@Validated
 public class ProfessorController {
 
     private ProfessorService professorService;
@@ -20,7 +24,7 @@ public class ProfessorController {
 
     @PostMapping
     public ProfessorRespostaDto salvar(
-            @RequestBody ProfessorRequisicaoDto professorRequisicaoDto
+            @RequestBody @Valid ProfessorRequisicaoDto professorRequisicaoDto
             ){
         try {
             return professorService.salvar(professorRequisicaoDto);
@@ -41,7 +45,7 @@ public class ProfessorController {
 
     @GetMapping ("/{id}")
     public ProfessorRespostaDto listarPorId(
-            @PathVariable long id
+            @PathVariable  @Positive(message = "O valor deve ser positivo")  long id
     ){
         try {
             return professorService.listarPorId(id);
@@ -52,8 +56,8 @@ public class ProfessorController {
 
     @PutMapping ("/{id}")
     public ProfessorRespostaDto atualizar(
-            @RequestBody ProfessorRequisicaoDto professorRequisicaoDto,
-            @PathVariable long id
+            @RequestBody @Valid ProfessorRequisicaoDto professorRequisicaoDto,
+            @PathVariable  @Positive(message = "O valor deve ser positivo")  long id
     ){
         try {
             return professorService.atualizar(professorRequisicaoDto, id);
@@ -65,7 +69,7 @@ public class ProfessorController {
 
     @DeleteMapping ("/{id}")
     public void deletar(
-            @PathVariable long id
+            @PathVariable  @Positive(message = "O valor deve ser positivo")  long id
     ){
         try {
             professorService.deletar(id);
