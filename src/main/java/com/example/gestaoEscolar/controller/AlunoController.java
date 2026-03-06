@@ -4,6 +4,9 @@ import com.example.gestaoEscolar.dto.aluno.AlunoRequisicaoDto;
 import com.example.gestaoEscolar.dto.aluno.AlunoRespostaDto;
 import com.example.gestaoEscolar.model.Aluno;
 import com.example.gestaoEscolar.service.AlunoService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -11,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gestaoAluno")
+@Validated
 public class AlunoController {
 
     private AlunoService alunoService;
@@ -30,7 +34,7 @@ public class AlunoController {
 
     @GetMapping ("/{id}")
     public AlunoRespostaDto listarPorId(
-            @PathVariable long id
+            @PathVariable @Positive(message = "O id deve ser positivo") long id
     ){
         try {
             return alunoService.buscarPorId(id);
@@ -42,7 +46,7 @@ public class AlunoController {
 
     @PostMapping
     public AlunoRespostaDto cadastrarAluno(
-            @RequestBody AlunoRequisicaoDto alunoRequisicaoDto
+            @RequestBody @Valid AlunoRequisicaoDto alunoRequisicaoDto
     ){
         try {
             return alunoService.salvar(alunoRequisicaoDto);
@@ -53,8 +57,8 @@ public class AlunoController {
 
     @PutMapping ("/{id}")
     public AlunoRespostaDto atualizar(
-        @RequestBody AlunoRequisicaoDto alunoRequisicaoDto,
-        @PathVariable long id
+        @RequestBody @Valid AlunoRequisicaoDto alunoRequisicaoDto,
+        @PathVariable @Positive(message = "O id deve ser positivo") long id
     ){
         try {
             return alunoService.atualizar(alunoRequisicaoDto, id);
@@ -65,7 +69,7 @@ public class AlunoController {
 
     @DeleteMapping ("/{id}")
     public void deletar(
-            @PathVariable long id
+            @PathVariable @Positive(message = "O id deve ser positivo") long id
     ){
         try {
              alunoService.deletar(id);
