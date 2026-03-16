@@ -4,6 +4,10 @@ import com.example.gestaoEscolar.dto.curso.CursoRequisicaoDto;
 import com.example.gestaoEscolar.dto.curso.CursoRespostaDto;
 import com.example.gestaoEscolar.model.Curso;
 import com.example.gestaoEscolar.service.CursoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/gestaoCurso")
 @Validated
+@Tag(name = "Curso", description = "Operações de cadastro e consulta de Curso")
 public class CursoController {
 
 
@@ -24,7 +29,7 @@ public class CursoController {
         this.cursoService=cursoService;
     }
 
-    @PostMapping
+    @Operation(summary = "Cadastrar um novo curso", description = "Cria um novo curso no sistema, como 'Análise e Desenvolvimento de Sistemas'.") @PostMapping
     public CursoRespostaDto salvar(
             @RequestBody @Valid CursoRequisicaoDto cursoRequisicaoDto
             ){
@@ -35,6 +40,7 @@ public class CursoController {
         }
     }
 
+    @Operation(summary = "Listar todos os cursos", description = "Retorna uma lista de todos os cursos ativos na instituição.")
     @GetMapping
     public List<CursoRespostaDto> listarTodos(){
         try {
@@ -44,6 +50,11 @@ public class CursoController {
         }
     }
 
+    @Operation(summary = "Buscar curso por ID", description = "Busca os detalhes de um curso específico através do seu ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Curso encontrado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Curso não encontrado")
+    })
     @GetMapping ("/{id}")
     public CursoRespostaDto listarPorId(
             @PathVariable  @Positive(message = "O id deve ser positivo") long id
@@ -55,6 +66,7 @@ public class CursoController {
         }
     }
 
+    @Operation(summary = "Atualizar um curso", description = "Altera os dados de um curso existente (ex: mudar o nome do curso).")
     @PutMapping ("/{id}")
     public CursoRespostaDto atualizar(
             @RequestBody @Valid CursoRequisicaoDto cursoRequisicaoDto,
@@ -67,6 +79,7 @@ public class CursoController {
         }
     }
 
+    @Operation(summary = "Remover um curso", description = "Exclui permanentemente um curso do sistema através do ID.")
     @DeleteMapping ("/{id}")
     public void deletar(
             @PathVariable @Positive(message = "O id deve ser positivo")  long id
