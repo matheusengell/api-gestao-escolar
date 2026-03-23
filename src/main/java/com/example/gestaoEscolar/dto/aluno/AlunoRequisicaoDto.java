@@ -16,7 +16,7 @@ public record AlunoRequisicaoDto(
 
         @Schema(description = "E-mail para contato", example = "matheus_engel@estudante.sesisenai.org.br")
         @NotBlank(message = "O email deve ser obrigatório")
-        @Size(min = 5, max = 100, message = "O nome deve ter entre 5 e 100 caracteres")
+        @Size(min = 5, max = 100, message = "O email deve ter entre 5 e 100 caracteres")
         @Email(message = "O email deve estar no formato correto")
      String email,
 
